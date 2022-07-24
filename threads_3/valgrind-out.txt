@@ -1,0 +1,866 @@
+==8179== Memcheck, a memory error detector
+==8179== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==8179== Using Valgrind-3.14.0-353a3587bb-20181007X and LibVEX; rerun with -h for copyright info
+==8179== Command: test_wakeup
+==8179== Parent PID: 30263
+==8179== 
+--8179-- 
+--8179-- Valgrind options:
+--8179--    --leak-check=full
+--8179--    --show-leak-kinds=all
+--8179--    --track-origins=yes
+--8179--    --verbose
+--8179--    --log-file=valgrind-out.txt
+--8179-- Contents of /proc/version:
+--8179--   Linux version 4.19.0-10-amd64 (debian-kernel@lists.debian.org) (gcc version 8.3.0 (Debian 8.3.0-6)) #1 SMP Debian 4.19.132-1 (2020-07-24)
+--8179-- 
+--8179-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--8179-- Page sizes: currently 4096, max supported 4096
+--8179-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--8179-- Reading syms from /nfs/ug/homes-4/w/wangh275/ece344/threads_3/test_wakeup
+--8179-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.28.so
+--8179--   Considering /usr/lib/debug/.build-id/f2/5dfd7b95be4ba386fd71080accae8c0732b711.debug ..
+--8179--   .. build-id is valid
+--8179-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--8179--   Considering /usr/lib/debug/.build-id/32/2e77af97f403c3d34ff09edf60b089e72ec889.debug ..
+--8179--   .. build-id is valid
+--8179--    object doesn't have a dynamic symbol table
+--8179-- Scheduler: using generic scheduler lock implementation.
+--8179-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==8179== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-8179-by-wangh275-on-ug161
+==8179== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-8179-by-wangh275-on-ug161
+==8179== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-8179-by-wangh275-on-ug161
+==8179== 
+==8179== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==8179== don't want to do, unless you know exactly what you're doing,
+==8179== or are doing some strange experiment):
+==8179==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=8179 ...command...
+==8179== 
+==8179== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==8179==   /path/to/gdb test_wakeup
+==8179== and then give GDB the following command
+==8179==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=8179
+==8179== --pid is optional if only one valgrind process is running
+==8179== 
+--8179-- REDIR: 0x401e2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--8179-- REDIR: 0x401e0d0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (vgPlain_amd64_linux_REDIR_FOR_index)
+--8179-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--8179--   Considering /usr/lib/debug/.build-id/34/fbc4cdfbfce1bfc3d2e522a01a050bf724c930.debug ..
+--8179--   .. build-id is valid
+--8179-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--8179--   Considering /usr/lib/debug/.build-id/ca/bb7898ea982d936cbfadd70ae831c6eb63623f.debug ..
+--8179--   .. build-id is valid
+==8179== WARNING: new redirection conflicts with existing -- ignoring it
+--8179--     old: 0x0401e2f0 (strlen              ) R-> (0000.0) 0x580c9ce2 vgPlain_amd64_linux_REDIR_FOR_strlen
+--8179--     new: 0x0401e2f0 (strlen              ) R-> (2007.0) 0x04838d80 strlen
+--8179-- REDIR: 0x401ab10 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4839e40 (strcmp)
+--8179-- REDIR: 0x401e830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x483d860 (mempcpy)
+--8179-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.28.so
+--8179--   Considering /usr/lib/debug/.build-id/18/b9a9a8c523e5cfe5b5d946d605d09242f09798.debug ..
+--8179--   .. build-id is valid
+--8179-- REDIR: 0x48f4f70 (libc.so.6:memmove) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4160 (libc.so.6:strncpy) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f5250 (libc.so.6:strcasecmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f3b70 (libc.so.6:strcat) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4190 (libc.so.6:rindex) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f6890 (libc.so.6:rawmemchr) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x490f230 (libc.so.6:wmemchr) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x490ecd0 (libc.so.6:wcscmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f50e0 (libc.so.6:mempcpy) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4f10 (libc.so.6:bcmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4100 (libc.so.6:strncmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f3be0 (libc.so.6:strcmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f5040 (libc.so.6:memset) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x490eca0 (libc.so.6:wcschr) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f40a0 (libc.so.6:strnlen) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f3c70 (libc.so.6:strcspn) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f52a0 (libc.so.6:strncasecmp) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f3c40 (libc.so.6:strcpy) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f53e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x49104d0 (libc.so.6:wcsnlen) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f41c0 (libc.so.6:strpbrk) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f3ba0 (libc.so.6:index) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4070 (libc.so.6:strlen) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48fb280 (libc.so.6:memrchr) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f52f0 (libc.so.6:strcasecmp_l) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4ee0 (libc.so.6:memchr) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x490edb0 (libc.so.6:wcslen) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f4460 (libc.so.6:strspn) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f5220 (libc.so.6:stpncpy) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f51f0 (libc.so.6:stpcpy) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f68c0 (libc.so.6:strchrnul) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x48f5340 (libc.so.6:strncasecmp_l) redirected to 0x482b1b0 (_vgnU_ifunc_wrapper)
+--8179-- REDIR: 0x49c7fa0 (libc.so.6:__strrchr_avx2) redirected to 0x4838790 (rindex)
+--8179-- REDIR: 0x49c7db0 (libc.so.6:__strchrnul_avx2) redirected to 0x483d390 (strchrnul)
+--8179-- REDIR: 0x48f0350 (libc.so.6:malloc) redirected to 0x4835710 (malloc)
+--8179-- REDIR: 0x48f09a0 (libc.so.6:free) redirected to 0x4836940 (free)
+--8179-- REDIR: 0x48f18a0 (libc.so.6:mallinfo) redirected to 0x48385b0 (mallinfo)
+--8179-- REDIR: 0x49c8690 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x483d4a0 (mempcpy)
+==8179== Warning: client switching stacks?  SP change: 0x1ffefff2d8 --> 0x4a38798
+==8179==          to suppress, use: --max-stackframe=137344346944 or greater
+==8179== Warning: client switching stacks?  SP change: 0x4a37668 --> 0x1ffefff2e0
+==8179==          to suppress, use: --max-stackframe=137344351352 or greater
+==8179== Warning: client switching stacks?  SP change: 0x1ffefff2d8 --> 0x4a37670
+==8179==          to suppress, use: --max-stackframe=137344351336 or greater
+==8179==          further instances of this message will not be shown.
+==8179== Invalid write of size 8
+==8179==    at 0x48B352E: setcontext (setcontext.S:177)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a489f8 is 32,520 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x48B354F: setcontext (setcontext.S:194)
+==8179==    by 0x10C3C9: thread_yield (thread.c:212)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a489f8 is 32,520 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 1
+==8179==    at 0x10C3ED: thread_yield (thread.c:214)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a13 is 32,547 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10C4EB: thread_yield (thread.c:236)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a2c is 32,572 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10C4F5: thread_yield (thread.c:237)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a14 is 32,548 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10C509: thread_yield (thread.c:242)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a30 is 32,576 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10C50A: thread_yield (thread.c:242)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a38 is 32,584 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 4
+==8179==    at 0x10C802: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a58 is 32,616 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10C805: thread_sleep (thread.c:368)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a5c is 32,620 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10C80F: thread_sleep (thread.c:369)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a58 is 32,616 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10C812: thread_sleep (thread.c:370)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a60 is 32,624 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10C813: thread_sleep (thread.c:370)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a68 is 32,632 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 4
+==8179==    at 0x10A545: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab4 is 32,708 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10A548: test_wakeup_thread (test_thread.c:431)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab4 is 32,708 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10A575: test_wakeup_thread (test_thread.c:432)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Syscall param gettimeofday(tv) points to unaddressable byte(s)
+==8179==    at 0x4921C07: __gettimeofday_syscall (gettimeofday.c:29)
+==8179==    by 0x10A58F: test_wakeup_thread (test_thread.c:434)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a90 is 32,672 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A594: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa0 is 32,688 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 8
+==8179==    at 0x10A59E: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5A6: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa8 is 32,696 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 8
+==8179==    at 0x10A5B0: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5B4: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5D7: test_wakeup_thread (test_thread.c:438)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5E0: test_wakeup_thread (test_thread.c:438)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10A60D: test_wakeup_thread (test_thread.c:421)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48abc is 32,716 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10A611: test_wakeup_thread (test_thread.c:421)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48abc is 32,716 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Syscall param gettimeofday(tv) points to unaddressable byte(s)
+==8179==    at 0x4921C07: __gettimeofday_syscall (gettimeofday.c:29)
+==8179==    by 0x10A500: test_wakeup_thread (test_thread.c:423)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa0 is 32,688 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 4
+==8179==    at 0x10A506: test_wakeup_thread (test_thread.c:427)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 4
+==8179==    at 0x10A509: test_wakeup_thread (test_thread.c:428)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5BD: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 8
+==8179==    at 0x10A5C5: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A5C9: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid write of size 8
+==8179==    at 0x10A5D3: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A625: test_wakeup_thread (test_thread.c:447)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ac0 is 32,720 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== Invalid read of size 8
+==8179==    at 0x10A626: test_wakeup_thread (test_thread.c:447)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ac8 is 32,728 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+--8179-- REDIR: 0x49c8170 (libc.so.6:__strlen_avx2) redirected to 0x4838c60 (strlen)
+--8179-- REDIR: 0x490a710 (libc.so.6:__stpcpy_sse2_unaligned) redirected to 0x483c3f0 (__stpcpy_sse2_unaligned)
+--8179-- REDIR: 0x49c86b0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x483c8a0 (memmove)
+--8179-- REDIR: 0x49c8b30 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x483c790 (memset)
+--8179-- REDIR: 0x4909100 (libc.so.6:__strcpy_sse2_unaligned) redirected to 0x4838db0 (strcpy)
+==8179== 
+==8179== Process terminating with default action of signal 6 (SIGABRT)
+==8179==    at 0x48A37BB: raise (raise.c:51)
+==8179==    by 0x488E534: abort (abort.c:79)
+==8179==    by 0x488E40E: __assert_fail_base.cold.0 (assert.c:92)
+==8179==    by 0x489C101: __assert_fail (assert.c:101)
+==8179==    by 0x109311: mallinfo_check (test_thread.c:30)
+==8179==    by 0x10AA0E: test_wakeup (test_thread.c:527)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== HEAP SUMMARY:
+==8179==     in use at exit: 4,194,304 bytes in 128 blocks
+==8179==   total heap usage: 4,413 allocs, 4,285 frees, 4,264,351 bytes allocated
+==8179== 
+==8179== Searching for pointers to 128 not-freed blocks
+==8179== Checked 1,102,048 bytes
+==8179== 
+==8179== 4,194,304 bytes in 128 blocks are still reachable in loss record 1 of 1
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== LEAK SUMMARY:
+==8179==    definitely lost: 0 bytes in 0 blocks
+==8179==    indirectly lost: 0 bytes in 0 blocks
+==8179==      possibly lost: 0 bytes in 0 blocks
+==8179==    still reachable: 4,194,304 bytes in 128 blocks
+==8179==         suppressed: 0 bytes in 0 blocks
+==8179== 
+==8179== ERROR SUMMARY: 10528 errors from 34 contexts (suppressed: 0 from 0)
+==8179== 
+==8179== 61 errors in context 1 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A626: test_wakeup_thread (test_thread.c:447)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ac8 is 32,728 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 61 errors in context 2 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A625: test_wakeup_thread (test_thread.c:447)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ac0 is 32,720 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 3 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5A6: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa8 is 32,696 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 4 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A594: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa0 is 32,688 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 5 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10C813: thread_sleep (thread.c:370)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a68 is 32,632 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 6 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10C812: thread_sleep (thread.c:370)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a60 is 32,624 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 7 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10C80F: thread_sleep (thread.c:369)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a58 is 32,616 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 8 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10C805: thread_sleep (thread.c:368)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a5c is 32,620 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 9 of 34:
+==8179== Invalid write of size 4
+==8179==    at 0x10C802: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a58 is 32,616 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 10 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10C50A: thread_yield (thread.c:242)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a38 is 32,584 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 11 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10C509: thread_yield (thread.c:242)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a30 is 32,576 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 12 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10C4F5: thread_yield (thread.c:237)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a14 is 32,548 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 13 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10C4EB: thread_yield (thread.c:236)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a2c is 32,572 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 14 of 34:
+==8179== Invalid read of size 1
+==8179==    at 0x10C3ED: thread_yield (thread.c:214)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a13 is 32,547 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 15 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x48B354F: setcontext (setcontext.S:194)
+==8179==    by 0x10C3C9: thread_yield (thread.c:212)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a489f8 is 32,520 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 63 errors in context 16 of 34:
+==8179== Invalid write of size 8
+==8179==    at 0x48B352E: setcontext (setcontext.S:177)
+==8179==    by 0x10C801: thread_sleep (thread.c:366)
+==8179==    by 0x10A544: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a489f8 is 32,520 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 126 errors in context 17 of 34:
+==8179== Syscall param gettimeofday(tv) points to unaddressable byte(s)
+==8179==    at 0x4921C07: __gettimeofday_syscall (gettimeofday.c:29)
+==8179==    by 0x10A500: test_wakeup_thread (test_thread.c:423)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48aa0 is 32,688 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 126 errors in context 18 of 34:
+==8179== Syscall param gettimeofday(tv) points to unaddressable byte(s)
+==8179==    at 0x4921C07: __gettimeofday_syscall (gettimeofday.c:29)
+==8179==    by 0x10A58F: test_wakeup_thread (test_thread.c:434)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a90 is 32,672 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 366 errors in context 19 of 34:
+==8179== Invalid write of size 8
+==8179==    at 0x10A5D3: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 366 errors in context 20 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5C9: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 366 errors in context 21 of 34:
+==8179== Invalid write of size 8
+==8179==    at 0x10A5C5: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 366 errors in context 22 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5BD: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 549 errors in context 23 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10A509: test_wakeup_thread (test_thread.c:428)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 549 errors in context 24 of 34:
+==8179== Invalid write of size 4
+==8179==    at 0x10A506: test_wakeup_thread (test_thread.c:427)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 25 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10A611: test_wakeup_thread (test_thread.c:421)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48abc is 32,716 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 26 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5E0: test_wakeup_thread (test_thread.c:438)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 27 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5D7: test_wakeup_thread (test_thread.c:438)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 28 of 34:
+==8179== Invalid read of size 8
+==8179==    at 0x10A5B4: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 29 of 34:
+==8179== Invalid write of size 8
+==8179==    at 0x10A5B0: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a88 is 32,664 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 30 of 34:
+==8179== Invalid write of size 8
+==8179==    at 0x10A59E: test_wakeup_thread (test_thread.c:435)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48a80 is 32,656 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 31 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10A575: test_wakeup_thread (test_thread.c:432)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab8 is 32,712 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 32 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10A548: test_wakeup_thread (test_thread.c:431)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab4 is 32,708 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 610 errors in context 33 of 34:
+==8179== Invalid write of size 4
+==8179==    at 0x10A545: test_wakeup_thread (test_thread.c:430)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48ab4 is 32,708 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== 
+==8179== 1220 errors in context 34 of 34:
+==8179== Invalid read of size 4
+==8179==    at 0x10A60D: test_wakeup_thread (test_thread.c:421)
+==8179==    by 0x10BF31: thread_stub (thread.c:62)
+==8179==  Address 0x4a48abc is 32,716 bytes inside a block of size 32,768 alloc'd
+==8179==    at 0x483577F: malloc (vg_replace_malloc.c:299)
+==8179==    by 0x10C0C7: thread_create (thread.c:126)
+==8179==    by 0x10A7B4: test_wakeup (test_thread.c:480)
+==8179==    by 0x1092AC: main (test_wakeup.c:11)
+==8179== 
+==8179== ERROR SUMMARY: 10528 errors from 34 contexts (suppressed: 0 from 0)
